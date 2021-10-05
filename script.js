@@ -1,10 +1,12 @@
 const gameState = {}
 
+// Loads the player & background
 function preload() {
     this.load.image('player', 'assets/sprites/atlas.png');
     this.load.image('background', 'assets/backgrounds/Pokemon.png');
 }
 
+// Creates & sets scale of player & background and creates cursor keys
 function create() {
   gameState.image = this.add.image(250,250, 'background');
   gameState.image.setScale(.62);
@@ -13,6 +15,7 @@ function create() {
   gameState.cursors = this.input.keyboard.createCursorKeys();
 }
 
+// Updates player direction based on key pressed
 function update() {
   if (gameState.cursors.right.isDown) {
     gameState.player.x +=5;
