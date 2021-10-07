@@ -1,47 +1,56 @@
-const gameState = {}
+const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
+  preload: preload,
+  create: create,
+  update: update
+})
 
-// Loads the player & background
-function preload() {
-    this.load.image('player', 'assets/sprites/atlas.png');
-    this.load.image('background', 'assets/backgrounds/Pokemon.png');
+let cursors
+let player
+
+function preload () {
+  game.load.image('sky', 'assets/Pokemon.png',)
+  game.load.spritesheet('boy', 'assets/boy_run_left_right.png', 31.99, 43)
 }
 
-// Creates & sets scale of player & background and creates cursor keys
-function create() {
-  gameState.image = this.add.image(250,250, 'background');
-  gameState.image.setScale(.62);
-  gameState.player = this.add.sprite(200,200,'player');
-  gameState.player.setScale(.60);
-  gameState.cursors = this.input.keyboard.createCursorKeys();
+function create () {
+  game.physics.startSystem(Phaser.Physics.ARCADE)
+
+  game.add.sprite(0, 0, 'sky')
+
+  player = game.add.sprite(10, game.world.height -93, 'boy')
+
+  game.physics.arcade.enable(player)
+
+  player.body.collideWorldBounds = true
+
+  player.animations.add('left', [0, 3], 5, true)
+  player.animations.add('right', [5, 6], 5,true)
+  player.animations.add('up', [5, 6], 5,true)
+  player.animations.add('down', [0, 3], 5,true)
+
+  cursors = game.input.keyboard.createCursorKeys()
 }
 
-// Updates player direction based on key pressed
-function update() {
-  if (gameState.cursors.right.isDown) {
-    gameState.player.x +=5;
-  }
-  if (gameState.cursors.left.isDown) {
-    gameState.player.x -=5;
-  }
-  if (gameState.cursors.up.isDown) {
-    gameState.player.y -=5;
-  }
-  if (gameState.cursors.down.isDown) {
-    gameState.player.y +=5;
+function update () {
+  game.physics.arcade.collide(player)
+
+  game.physics.arcade.overlap(player, null, this)
+
+  if (cursors.left.isDown) {
+    player.body.velocity.x = -100
+    player.animations.play('left')
+  } else if (cursors.right.isDown) {
+    player.body.velocity.x = 100
+    player.animations.play('right')
+  } else if (cursors.up.isDown) {
+    player.body.velocity.y = -100
+    player.animations.play('down')
+  } else if (cursors.down.isDown) {
+    player.body.velocity.y = 100
+    player.animations.play('up')
+  } else {
+    player.animations.stop()
+    player.body.velocity.x = 0
+    player.body.velocity.y = 0
   }
 }
-
-const config = {
-    type: Phaser.AUTO,
-    width: 500,
-    height: 500,
-    backgroundColor: '',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-
-const game = new Phaser.Game(config);
-
