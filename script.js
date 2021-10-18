@@ -1,4 +1,4 @@
-const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
+const game = new Phaser.Game(800, 800, Phaser.AUTO, '', {
   preload: preload,
   create: create,
   update: update
@@ -8,8 +8,8 @@ let cursors
 let player
 
 function preload () {
-  game.load.image('sky', 'assets/Pokemon.png',)
-  game.load.spritesheet('boy', 'assets/boy_run_left_right.png', 31.99, 43)
+  game.load.image('sky', 'assets/backgrounds/Pokemon.png')
+  game.load.spritesheet('boy', 'assets/sprites/boy_run_left_right.png', 31.99, 43)
 }
 
 function create () {
