@@ -17,7 +17,7 @@ function create () {
 
   game.add.sprite(0, 0, 'sky')
 
-  player = game.add.sprite(10, game.world.height -93, 'boy')
+  player = game.add.sprite(370, game.world.height -100, 'boy')
 
   game.physics.arcade.enable(player)
 
