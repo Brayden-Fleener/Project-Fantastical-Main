@@ -43,19 +43,40 @@ function update () {
   game.physics.arcade.collide(player, object)
 
   game.physics.arcade.overlap(player, null, this)
+  var speed = 100
+  
+ //if (cursors.up.isDown && cursors.down.isDown) {
+    //var speed = 700
+  //}
 
-  if (cursors.left.isDown) {
-    player.body.velocity.x = -100
+  if (cursors.up.isDown && cursors.left.isDown) {
+    player.body.velocity.x = -speed
+    player.body.velocity.y = -speed
+    
+  } else if (cursors.up.isDown && cursors.right.isDown) {
+    player.body.velocity.x = speed
+    player.body.velocity.y = -speed
+    
+  } else if (cursors.down.isDown && cursors.left.isDown) {
+    player.body.velocity.x = -speed
+    player.body.velocity.y = speed
+
+  } else if (cursors.down.isDown && cursors.right.isDown){
+    player.body.velocity.x = speed
+    player.body.velocity.y = speed
+
+  } else if (cursors.up.isDown) {
+    player.body.velocity.y = -speed
+
+  } else if (cursors.down.isDown) {
+    player.body.velocity.y = speed
+
+  } else if (cursors.left.isDown) {
+    player.body.velocity.x = -speed
     player.animations.play('left')
   } else if (cursors.right.isDown) {
-    player.body.velocity.x = 100
+    player.body.velocity.x = speed
     player.animations.play('right')
-  } else if (cursors.up.isDown) {
-    player.body.velocity.y = -100
-    player.animations.play('down')
-  } else if (cursors.down.isDown) {
-    player.body.velocity.y = 100
-    player.animations.play('up')
   } else {
     player.animations.stop()
     player.body.velocity.x = 0
