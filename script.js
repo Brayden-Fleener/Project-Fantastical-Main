@@ -56,8 +56,9 @@ function update() {
   }
 
   if (health <= 0) {
-    player.x = 1000000000000000000
-    object.x = 1000000000000000000
+    player.destroy()
+    object.destroy()
+
   } else if (health <= 50) {
     speed = 50
   }
@@ -102,8 +103,4 @@ function update() {
     player.body.velocity.x = 0
     player.body.velocity.y = 0
   }
-
- 
-
-
 }
